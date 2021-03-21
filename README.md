@@ -33,3 +33,7 @@ I added validaton soo yuo can't start the algorithms if already is one in proces
 ## Radix Sort:
 
 ![](Img/radixSort.gif)
+
+## Refresh:
+
+![](Img/refresh.gif)
