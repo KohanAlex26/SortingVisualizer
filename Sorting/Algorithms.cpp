@@ -161,3 +161,127 @@ void Algorithms::mergeSort(std::vector<Rectangle1 *> list,int l,int r){
     mergeSort(list,m+1,r);
     merge(list,l,m,r);
 }
+
+
+
+
+/* This function takes last element as pivot, places
+the pivot element at its correct position in sorted
+array, and places all smaller (smaller than pivot)
+to left of pivot and all greater elements to right
+of pivot */
+int Algorithms::partition (std::vector<Rectangle1 *> list, int low, int high)
+{
+    list[high]->setColor(Qt::blue);
+    int pivot = list[high]->getHeight(); // pivot
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        // If current element is smaller than the pivot
+        list[j]->setColor(Qt::blue);
+        delay();
+        if (list[j]->getHeight() < pivot)
+        {
+            i++; // increment index of smaller element
+            int aux = list[i]->getHeight();
+            QPointF p=list[i]->pos();
+            list[i]->setHeight(list[j]->getHeight());
+            list[i]->setPos(list[i]->x(),list[j]->y());
+            list[j]->setHeight(aux);
+            list[j]->setPos(list[j]->x(),p.y());
+        }
+        delay();
+        list[j]->setColor(Qt::red);
+    }
+    delay();
+    list[high]->setColor(Qt::red);
+    int aux = list[i+1]->getHeight();
+    QPointF p=list[i+1]->pos();
+    list[i+1]->setHeight(list[high]->getHeight());
+    list[i+1]->setPos(list[i+1]->x(),list[high]->y());
+    list[high]->setHeight(aux);
+    list[high]->setPos(list[high]->x(),p.y());
+    return (i + 1);
+}
+
+/* The main function that implements QuickSort
+arr[] --> Array to be sorted,
+low --> Starting index,
+high --> Ending index */
+void Algorithms::quickSort(std::vector<Rectangle1 *> list, int low, int high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[p] is now
+        at right place */
+        int pi = partition(list, low, high);
+
+        // Separately sort elements before
+        // partition and after partition
+        quickSort(list, low, pi - 1);
+        quickSort(list, pi + 1, high);
+    }
+}
+
+
+
+
+
+// A utility function to get maximum value in arr[]
+int Algorithms::getMax(std::vector<Rectangle1 *> list, int n)
+{
+    int mx = list[0]->getHeight();
+    for (int i = 1; i < n; i++)
+        if (list[i]->getHeight() > mx)
+            mx = list[i]->getHeight();
+    return mx;
+}
+
+// A function to do counting sort of arr[] according to
+// the digit represented by exp.
+void Algorithms::countSort(std::vector<Rectangle1 *> list, int n, int exp)
+{
+    int output[100]; // output array
+    int i, count[10] = { 0 };
+
+    // Store count of occurrences in count[]
+    for (i = 0; i < n; i++)
+        count[(list[i]->getHeight() / exp) % 10]++;
+
+    // Change count[i] so that count[i] now contains actual
+    //  position of this digit in output[]
+    for (i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    // Build the output array
+    for (i = n - 1; i >= 0; i--) {
+        output[count[(list[i]->getHeight() / exp) % 10] - 1] = list[i]->getHeight();
+        count[(list[i]->getHeight() / exp) % 10]--;
+    }
+
+    // Copy the output array to arr[], so that arr[] now
+    // contains sorted numbers according to current digit
+    for (i = 0; i < n; i++)
+    {
+        list[i]->setColor(Qt::blue);
+        list[i]->setHeight(output[i]);
+        delay();
+        list[i]->setColor(Qt::red);
+    }
+
+}
+
+// The main function to that sorts arr[] of size n using
+// Radix Sort
+void Algorithms::radixsort(std::vector<Rectangle1 *> list, int n)
+{
+    // Find the maximum number to know number of digits
+    int m = getMax(list, n);
+
+    // Do counting sort for every digit. Note that instead
+    // of passing digit number, exp is passed. exp is 10^i
+    // where i is current digit number
+    for (int exp = 1; m / exp > 0; exp *= 10)
+        countSort(list, n, exp);
+}

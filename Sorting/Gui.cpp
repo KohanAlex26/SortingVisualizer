@@ -41,6 +41,8 @@ void Gui::initGui(int el)
     comboBox->addItem("Bubble Sort");
     comboBox->addItem("Insertion Sort");
     comboBox->addItem("Merge Sort");
+    comboBox->addItem("Quick Sort");
+    comboBox->addItem("Radix Sort");
 
     SHIFT = 10;
     for(int i = 0; i < el; i ++)
@@ -85,6 +87,10 @@ void Gui::sort()
         this->algorithm->insertionSort(list);
     else if(text == "Merge Sort")
         this->algorithm->mergeSort(list,0,el-1);
+    else if(text == "Quick Sort")
+        this->algorithm->quickSort(list, 0, el - 1);
+    else if(text == "Radix Sort")
+        this->algorithm->radixsort(list, el);
 }
 
 void Gui::refresh()
