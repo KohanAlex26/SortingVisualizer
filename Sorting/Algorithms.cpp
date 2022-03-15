@@ -3,21 +3,56 @@
 #include <QCoreApplication>
 #include <QTime>
 #include <QPointF>
-Algorithms::Algorithms(int el){
+Algorithms::Algorithms(int el,QSlider* slider){
 
     this->el=el;
+    this->slider=slider;
 }
 
 Algorithms::~Algorithms(){
 
 }
 
+
+
 void Algorithms::delay()
 {
-    QTime dieTime= QTime::currentTime().addMSecs(1);
-    while (QTime::currentTime() < dieTime)
+    if(slider->value()==0)
+    {
+        QTime dieTime= QTime::currentTime().addMSecs(1);
+        while (QTime::currentTime() < dieTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+    else
+    if(slider->value()==1)
+    {
+        QTime dieTime= QTime::currentTime().addMSecs(1);
+        while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+    else
+    if(slider->value()==2)
+    {
+        QTime dieTime= QTime::currentTime().addMSecs(1);
+        while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+    else
+    if(slider->value()==3)
+    {
+        QTime dieTime= QTime::currentTime().addMSecs(10);
+        while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+    else
+    if(slider->value()==4)
+    {
+        QTime dieTime= QTime::currentTime().addMSecs(100);
+        while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
 }
+
 
 void Algorithms::bubbleSort(std::vector<Rectangle1*> list)
 {

@@ -15,6 +15,7 @@ class Gui : public QGraphicsView
 {
     Q_OBJECT
 public:
+    QSlider *slider;
     Gui(int el,QWidget* parent = 0);
     ~Gui();
 private:
@@ -22,6 +23,7 @@ private:
     Algorithms* algorithm;
     int SHIFT;
     int el;
+
     std::vector<Rectangle1*> list;
 //    QGraphicsView* graphicsView;
     QGraphicsScene* scene;

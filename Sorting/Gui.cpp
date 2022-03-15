@@ -15,7 +15,9 @@ Gui::Gui(int el,QWidget* parent): QGraphicsView{parent}
 {
     this->initGui(el);
     this->connectSignalsAndSlots();
-    algorithm=new Algorithms(el);
+    slider = new QSlider(Qt::Horizontal);
+    slider->setValue(0);
+    algorithm=new Algorithms(el,slider);
     this->el=el;
 }
 
@@ -65,10 +67,15 @@ void Gui::initGui(int el)
     layout->addWidget(sortButton);
     layout->addWidget(refreshButton);
 
+
+
     finalLayout->addWidget(comboBox);
     finalLayout->addLayout(layout);
 
+    QHBoxLayout* LayoutSlider = new QHBoxLayout{this};
 
+    LayoutSlider->addWidget(slider);
+    finalLayout->addLayout(LayoutSlider);
 
 
 }

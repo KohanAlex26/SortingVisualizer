@@ -3,11 +3,12 @@
 
 #include <vector>
 #include "Rectangle1.h"
+#include "QSlider"
 
 class Algorithms
 {
 public:
-    Algorithms(int el);
+    Algorithms(int el,QSlider* slider);
     ~Algorithms();
 
     //bubble sort
@@ -35,6 +36,7 @@ public:
 private:
     void delay();
     int el;
+    QSlider *slider;
 };
 
 #endif // ALGORITHMS_H
